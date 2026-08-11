@@ -1,0 +1,22 @@
+# Quarto
+/.quarto/
+*_files/
+*_cache/
+*.rmarkdown
+
+# Rendered output: index.html is tracked deliberately so GitHub Pages
+# can serve it. Ignore any other rendered HTML.
+demo_report.html
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# macOS
+.DS_Store
+
+# Data (uncomment if you later add raw files you do not want public)
+# /data/
