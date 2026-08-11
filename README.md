@@ -2,7 +2,7 @@
 
 A working demonstration of the report template I build for research groups and public agencies through [DataSphere Analytics](https://theophile-mouton.com).
 
-**[View the rendered report](https://theophilemt92.github.io/LinkedIn_quarto_post/)**
+**[View the rendered report](https://theophilemt92.github.io/quarto-report-template/)**
 
 ## What this shows
 
