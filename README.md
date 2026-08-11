@@ -55,11 +55,7 @@ Changing those values and editing `footer.html` produces a different institution
 
 The report uses a small selection of large marine protected areas, with rounded areas and indicative centroids compiled for demonstration purposes only. Source: Protected Planet, UNEP-WCMC and IUCN. The figures are illustrative and should not be cited.
 
-## Licence
-
-Code and template released under the MIT Licence. See `LICENSE`.
-
 ## Contact
 
-Théophile L. Mouton, marine conservation scientist and data consultant.
+Théophile L. Mouton, data visualisation consultant.
 [theophile-mouton.com](https://theophile-mouton.com)
