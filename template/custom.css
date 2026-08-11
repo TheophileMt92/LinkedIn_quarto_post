@@ -373,3 +373,8 @@ details.code-fold pre {
   margin: 1.5rem auto;
   border-radius: 4px;
 }
+.plotly.html-widget,
+.reactable {
+  max-width: 800px !important;
+  margin: 1.5rem auto;
+}
