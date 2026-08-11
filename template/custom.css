@@ -333,3 +333,43 @@ figcaption, .figure-caption {
   .footer-right { text-align: center; }
   :root { --header-height: 140px; }
 }
+
+details.code-fold {
+  margin: 0 0 1.3rem;
+  border-left: 3px solid var(--ocean-light);
+  background: #f7fbfd;
+  border-radius: 0 4px 4px 0;
+}
+details.code-fold > summary {
+  cursor: pointer;
+  padding: .45rem .85rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--ocean-mid);
+  list-style: none;
+  user-select: none;
+}
+details.code-fold > summary::-webkit-details-marker { display: none; }
+details.code-fold > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: .5rem;
+  transition: transform .15s ease;
+}
+details.code-fold[open] > summary::before { transform: rotate(90deg); }
+details.code-fold > summary:hover { color: var(--ocean-surface); }
+details.code-fold[open] > summary::before { transform: rotate(90deg); }
+details.code-fold > summary:hover { color: var(--ocean-surface); }
+
+details.code-fold pre {
+  margin: 0;
+  border-left: none;
+  border-radius: 0;
+  background: transparent;
+}
+.leaflet-container {
+  max-width: 800px;
+  height: 480px !important;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+}

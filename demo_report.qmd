@@ -5,7 +5,10 @@ author: "Théophile L. Mouton"
 date: today
 format:
   html:
+    output-file: index.html
     embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
     css: template/custom.css
     include-before-body: template/header.html
     include-after-body: template/footer.html
@@ -16,12 +19,14 @@ format:
     fig-align: center
 editor: visual
 execute:
-  echo: false
+  echo: true
   message: false
   warning: false
 ---
 
 ```{r setup}
+#| echo: false
+
 library(dplyr)
 library(plotly)
 library(leaflet)
@@ -39,6 +44,8 @@ pal_ocean <- c(
 ```
 
 ```{r data}
+#| echo: false
+
 # Illustrative data: a selection of large marine protected areas.
 # Areas and designation years are rounded public figures (source: Protected Planet,
 # UNEP-WCMC & IUCN). Coordinates are indicative centroids, not official boundaries.
@@ -132,10 +139,11 @@ The same sites on a Leaflet map. Circles are scaled by area, the layer control i
 ```{r map}
 mpa_pal <- colorFactor(unname(basin_cols), domain = names(basin_cols))
 
-m <- leaflet(mpa, options = leafletOptions(worldCopyJump = TRUE)) |>
-  addProviderTiles("CartoDB.Positron", group = "Light") |>
+m <- leaflet(mpa, options = leafletOptions(worldCopyJump = FALSE)) |>
+  addProviderTiles("Esri.WorldImagery", group = "Satellite") |>
   addProviderTiles("Esri.OceanBasemap", group = "Bathymetry") |>
-  setView(lng = -160, lat = -15, zoom = 2)
+  addProviderTiles("CartoDB.Positron", group = "Light") |>
+  setView(lng = 10, lat = 0, zoom = 1.4)
 
 for (b in names(basin_cols)) {
   d <- filter(mpa, basin == b)
@@ -146,7 +154,24 @@ for (b in names(basin_cols)) {
     color = "white", weight = 1.5,
     fillColor = basin_cols[[b]], fillOpacity = 0.65,
     group = b,
-    label = ~name,
+    label = ~lapply(paste0(
+      "<div style='font-family:Source Sans 3,sans-serif; line-height:1.45;'>",
+      "<b style='color:", pal_ocean[["deep"]], ";'>", name, "</b><br>",
+      "<span style='color:#445566;'>", country, " · ", year, "</span><br>",
+      "<b>", format(area_km2, big.mark = " "), " km²</b></div>"
+    ), htmltools::HTML),
+    labelOptions = labelOptions(
+      textsize = "13px",
+      direction = "auto",
+      sticky = FALSE,
+      style = list(
+        "background" = "white",
+        "border" = paste0("1px solid ", pal_ocean[["surface"]]),
+        "border-radius" = "4px",
+        "box-shadow" = "0 2px 6px rgba(6,45,74,0.18)",
+        "padding" = "6px 10px"
+      )
+    ),
     popup = ~paste0(
       "<div style='font-family:Source Sans 3,sans-serif;'>",
       "<b style='color:", pal_ocean[["deep"]], ";'>", name, "</b><br>",
@@ -158,7 +183,7 @@ for (b in names(basin_cols)) {
 
 m |>
   addLayersControl(
-    baseGroups = c("Light", "Bathymetry"),
+    baseGroups = c("Satellite", "Bathymetry", "Light"),
     overlayGroups = names(basin_cols),
     options = layersControlOptions(collapsed = TRUE)
   ) |>
